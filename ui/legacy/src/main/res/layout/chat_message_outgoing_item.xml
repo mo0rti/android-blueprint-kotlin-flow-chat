@@ -8,35 +8,45 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/chat_message_outgoing_background"
-        android:padding="12dp">
+        android:layout_marginStart="32dp">
 
-        <TextView
-            android:id="@+id/senderTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{message.sender}"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_gravity="end" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="16dp"
+            android:padding="12dp"
+            android:background="@drawable/chat_message_outgoing_background">
 
-        <TextView
-            android:id="@+id/contentTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{message.content}"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_gravity="end|bottom" />
+            <TextView
+                android:id="@+id/contentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{message.content}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_gravity="end|bottom" />
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/timeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="start"
+                android:text="@{message.time}"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </layout>

@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="chat_incoming_message_color">#ECEFF1</color>
-    <color name="chat_outgoing_message_color">#2196F3</color>
+    <color name="chat_outgoing_message_color">#6B7B88</color>
     <color name="send_button_color">#FF4081</color>
+    <color name="gray">#808080</color>
 
 </resources>

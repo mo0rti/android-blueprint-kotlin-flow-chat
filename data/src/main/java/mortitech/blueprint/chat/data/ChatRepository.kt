@@ -2,9 +2,10 @@ package mortitech.blueprint.chat.data
 
 import android.util.Log
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import mortitech.blueprint.chat.data.Constants.TAG
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 /**
@@ -44,7 +45,8 @@ class ChatRepository {
      */
     fun sendMessage(username: String, content: String) {
         coroutineScope.launch {
-            _incomingMessages.emit(ChatMessage(username, content, ChatMessage.MessageType.OUTGOING))
+            val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+            _incomingMessages.emit(ChatMessage(username, content, currentTime, ChatMessage.MessageType.OUTGOING))
         }
     }
 
@@ -82,7 +84,8 @@ class ChatRepository {
                 delay(Random.nextLong(500, 2000))
                 val sender = senders.random()
                 val content = phrases.shuffled().take(Random.nextInt(1, 3)).joinToString(separator = " ")
-                val message = ChatMessage(sender, content, ChatMessage.MessageType.INCOMING)
+                val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+                val message = ChatMessage(sender, content, currentTime, ChatMessage.MessageType.INCOMING)
                 _incomingMessages.emit(message)
             }
         }
