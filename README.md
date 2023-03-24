@@ -1,6 +1,12 @@
 # Kotlin Flow Chat Application
 This is an Android chat application built using Kotlin and Kotlin Flow. The application allows users to send and receive messages in a chat room.
 
+<div align="center">
+  <img src="./media/legacy-chat-list-screenshot.png" alt="Kotlin chat flow" width=500>
+</div>
+
+<br/>
+
 ## Features
 - Real-time messaging using Kotlin Flow.
 - Users can send and receive messages in a chat room.
@@ -45,3 +51,11 @@ The `ChatViewModel` class is responsible for managing the chat messages and prov
 The `ChatAdapter` class is responsible for displaying the chat messages in the `RecyclerView` in the `ChatActivity`. It extends the `ListAdapter` class and implements the `DiffUtil.ItemCallback` interface to efficiently handle changes in the list of chat messages. The `addMessage` method is used to add a new chat message to the list of messages and update the UI.
 
 Overall, this project is a great example of how to use Kotlin SharedFlow to build a real-time messaging feature in an Android application. It demonstrates how to use the `MutableSharedFlow` and `SharedFlow` classes to emit and observe messages, and how to use coroutines to manage concurrency and perform asynchronous operations. It also shows how to use the `ViewModel` architecture component to separate the UI and data layers of the application and how to use the `ListAdapter` class to efficiently handle changes in the list of chat messages.
+
+<br/>
+
+<div align="center">
+  <img src="./media/legacy-chat-recording.gif" alt="Kotlin chat flow" width=500>
+</div>
+
+<br/>
