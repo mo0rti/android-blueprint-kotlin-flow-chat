@@ -19,7 +19,7 @@ This is an Android chat application built using Kotlin and Kotlin Flow. The appl
 - Material Design Components.
 
 ## Installation
-- Clone the repository to your local machine using `git clone https://github.com/your-username/kotlin-flow-chat-app.git`
+- Clone the repository to your local machine using `git clone https://github.com/mo0rti/kotlin-flow-chat-app.git`
 - Open the project in Android Studio.
 - Build and run the application on an emulator or physical device.
 
