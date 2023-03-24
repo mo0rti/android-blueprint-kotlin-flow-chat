@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">BluePrint - Chat</string>
-    <string name="login_activity_title">Login</string>
+    <string name="app_name">BluePrint Chat</string>
     <string name="login_username_hint">Enter username</string>
     <string name="login_username_error">Please enter a valid username</string>
     <string name="login_button_text">Login</string>

@@ -57,6 +57,12 @@ class ChatRepository {
         coroutineScope.cancel()
     }
 
+    /**
+     * Initializes the [ChatRepository] by simulating incoming chat messages for testing purposes.
+     *
+     * The method emits a random chat message every 500-2000 milliseconds until a fixed number of messages is reached.
+     * The messages are generated using a predefined list of senders and phrases, and a random selection of each for each message.
+     */
     init {
         simulateIncomingMessages()
     }
@@ -66,6 +72,8 @@ class ChatRepository {
      *
      * The method emits a random chat message every 500-2000 milliseconds until a fixed number of messages is reached.
      * The messages are generated using a predefined list of senders and phrases, and a random selection of each for each message.
+     *
+     * This method is launched on the IO coroutine dispatcher to avoid blocking the main thread.
      */
     private fun simulateIncomingMessages() {
         coroutineScope.launch {
