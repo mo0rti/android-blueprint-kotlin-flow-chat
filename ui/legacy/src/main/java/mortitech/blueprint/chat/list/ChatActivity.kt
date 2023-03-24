@@ -1,6 +1,7 @@
 package mortitech.blueprint.chat.list
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,9 @@ import kotlinx.coroutines.launch
 import mortitech.blueprint.chat.databinding.ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_USERNAME = "mortitech.blueprint.chat.EXTRA_USERNAME"
+    }
 
     private val viewModel: ChatViewModel by viewModels()
     private lateinit var binding: ActivityChatBinding
@@ -21,8 +25,14 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val username = intent.getStringExtra(EXTRA_USERNAME)
+        if (username.isNullOrBlank()) {
+            finish()
+            return
+        }
+
         setupRecyclerView()
-        setupSendButton()
+        setupSendButton(username)
         observeIncomingMessages()
     }
 
@@ -33,14 +43,27 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupSendButton() {
-        binding.sendButton.setOnClickListener {
-            val content = binding.messageEditText.text.toString()
-            val username = binding.usernameEditText.text.toString()
-            if (content.isNotBlank() && username.isNotBlank()) {
-                viewModel.sendMessage(username, content)
-                binding.messageEditText.text.clear()
+    private fun setupSendButton(username: String) {
+        binding.messageEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                val content = binding.messageEditText.text.toString()
+                sendMessage(username, content)
+                true
+            } else {
+                false
             }
+        }
+
+        binding.messageInputLayout.setEndIconOnClickListener {
+            val content = binding.messageEditText.text.toString()
+            sendMessage(username, content)
+        }
+    }
+
+    private fun sendMessage(username: String, content: String) {
+        if (content.isNotBlank() && username.isNotBlank()) {
+            viewModel.sendMessage(username, content)
+            binding.messageEditText.text?.clear()
         }
     }
 
