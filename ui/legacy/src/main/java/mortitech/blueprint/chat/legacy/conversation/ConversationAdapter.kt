@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.legacy.chat
+package mortitech.blueprint.chat.legacy.conversation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import mortitech.blueprint.chat.data.ChatMessage
 import mortitech.blueprint.chat.legacy.databinding.ChatMessageIncomingItemBinding
 import mortitech.blueprint.chat.legacy.databinding.ChatMessageOutgoingItemBinding
 
-class ChatAdapter : ListAdapter<ChatMessage, RecyclerView.ViewHolder>(DiffCallback) {
+class ConversationAdapter : ListAdapter<ChatMessage, RecyclerView.ViewHolder>(DiffCallback) {
 
     companion object {
         private const val VIEW_TYPE_INCOMING = 0

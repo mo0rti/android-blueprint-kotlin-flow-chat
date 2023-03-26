@@ -1,22 +1,11 @@
-package mortitech.blueprint.chat.legacy.chat
+package mortitech.blueprint.chat.compose.conversation
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.SharedFlow
 import mortitech.blueprint.chat.data.ChatMessage
 import mortitech.blueprint.chat.data.ChatRepository
 
-/**
- * The [ChatViewModel] class is responsible for managing the chat messages and providing an interface for the UI to interact with the chat.
- *
- * It provides a [sendMessage] method to send chat messages, and exposes a [SharedFlow] of incoming messages.
- * The [incomingMessages] flow emits incoming chat messages as they arrive, and can be observed by clients to display the chat history.
- *
- * The [sendMessage] method delegates to the [ChatRepository] to send the message to the server.
- * The method takes a [username] and [content] as input parameters, and forwards them to the repository for processing.
- *
- * The [onCleared] method cancels all coroutines launched by the [ChatViewModel] instance.
- */
-class ChatViewModel : ViewModel() {
+class ConversationViewModel : ViewModel() {
     private val chatRepository = ChatRepository()
 
     /**
@@ -37,7 +26,7 @@ class ChatViewModel : ViewModel() {
     }
 
     /**
-     * Cancels all coroutines launched by the [ChatViewModel] instance.
+     * Cancels all coroutines launched by the [ConversationViewModel] instance.
      */
     override fun onCleared() {
         super.onCleared()

@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.legacy.chat
+package mortitech.blueprint.chat.legacy.conversation
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -7,20 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
-import mortitech.blueprint.chat.legacy.databinding.ActivityChatBinding
+import mortitech.blueprint.chat.legacy.databinding.ActivityConversationBinding
 
-class ChatActivity : AppCompatActivity() {
+class ConversationActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USERNAME = "mortitech.blueprint.chat.EXTRA_USERNAME"
     }
 
-    private val viewModel: ChatViewModel by viewModels()
-    private lateinit var binding: ActivityChatBinding
-    private val chatAdapter = ChatAdapter()
+    private val viewModel: ConversationViewModel by viewModels()
+    private lateinit var binding: ActivityConversationBinding
+    private val conversationAdapter = ConversationAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
+        binding = ActivityConversationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
@@ -36,8 +36,8 @@ class ChatActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@ChatActivity)
-            adapter = chatAdapter
+            layoutManager = LinearLayoutManager(this@ConversationActivity)
+            adapter = conversationAdapter
         }
     }
 
@@ -68,8 +68,8 @@ class ChatActivity : AppCompatActivity() {
     private fun observeIncomingMessages() {
         lifecycleScope.launch {
             viewModel.incomingMessages.collect { message ->
-                chatAdapter.addMessage(message)
-                binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+                conversationAdapter.addMessage(message)
+                binding.recyclerView.scrollToPosition(conversationAdapter.itemCount - 1)
             }
         }
     }

@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import mortitech.blueprint.chat.core.R
 import mortitech.blueprint.chat.legacy.databinding.ActivityLoginBinding
-import mortitech.blueprint.chat.legacy.chat.ChatActivity
+import mortitech.blueprint.chat.legacy.conversation.ConversationActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,8 +20,8 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString().trim()
             if (username.isNotEmpty()) {
-                val intent = Intent(this, ChatActivity::class.java)
-                intent.putExtra(ChatActivity.EXTRA_USERNAME, username)
+                val intent = Intent(this, ConversationActivity::class.java)
+                intent.putExtra(ConversationActivity.EXTRA_USERNAME, username)
                 startActivity(intent)
                 finish()
             } else {

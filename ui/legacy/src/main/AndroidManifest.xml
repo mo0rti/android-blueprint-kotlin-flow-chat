@@ -22,7 +22,7 @@
 
         </activity>
         <activity
-            android:name=".chat.ChatActivity"
+            android:name=".conversation.ConversationActivity"
             android:label="@string/chat_activity_title" />
     </application>
 

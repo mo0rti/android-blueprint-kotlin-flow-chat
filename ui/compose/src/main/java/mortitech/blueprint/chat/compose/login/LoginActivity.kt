@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import mortitech.blueprint.chat.compose.chat.ChatActivity
+import mortitech.blueprint.chat.compose.conversation.ConversationActivity
 import mortitech.blueprint.chat.compose.ui.theme.BlueprintChatTheme
 
 class LoginActivity : ComponentActivity() {
@@ -18,8 +18,8 @@ class LoginActivity : ComponentActivity() {
             BlueprintChatTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     LoginScreen { username ->
-                        val intent = Intent(this, ChatActivity::class.java)
-                        intent.putExtra(ChatActivity.EXTRA_USERNAME, username)
+                        val intent = Intent(this, ConversationActivity::class.java)
+                        intent.putExtra(ConversationActivity.EXTRA_USERNAME, username)
                         startActivity(intent)
                         finish()
                     }
