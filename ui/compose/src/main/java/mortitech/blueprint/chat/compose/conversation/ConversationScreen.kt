@@ -19,10 +19,12 @@ fun ConversationScreen(
 ) {
     val messages = remember { mutableStateListOf<ChatMessage>() }
     val message = remember { mutableStateOf("") }
+    val scrollState = rememberLazyListState()
 
     LaunchedEffect("Key") {
         viewModel.incomingMessages.collect {
             messages.add(it)
+            scrollState.scrollToItem(messages.size - 1)
         }
     }
 
@@ -35,7 +37,8 @@ fun ConversationScreen(
                 viewModel.sendMessage(userName, message.value)
                 message.value = ""
             }
-        }
+        },
+        scrollState = scrollState,
     )
 }
 
@@ -44,10 +47,9 @@ fun ConversationContent(
     messages: List<ChatMessage>,
     message: String,
     updateMessage: (String) -> Unit,
-    onSendClick: () -> Unit
+    onSendClick: () -> Unit,
+    scrollState: LazyListState,
 ) {
-    val scrollState = rememberLazyListState()
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -111,5 +113,6 @@ private fun ConversationContentPreview() {
         message = "",
         updateMessage = {},
         onSendClick = {},
+        scrollState = rememberLazyListState()
     )
 }
