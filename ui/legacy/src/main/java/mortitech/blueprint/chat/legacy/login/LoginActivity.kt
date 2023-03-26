@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import mortitech.blueprint.chat.core.R
 import mortitech.blueprint.chat.legacy.databinding.ActivityLoginBinding
-import mortitech.blueprint.chat.legacy.list.ChatActivity
+import mortitech.blueprint.chat.legacy.chat.ChatActivity
 
 class LoginActivity : AppCompatActivity() {
 

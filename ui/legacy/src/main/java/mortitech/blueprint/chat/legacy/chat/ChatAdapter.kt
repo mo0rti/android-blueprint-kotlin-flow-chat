@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.legacy.list
+package mortitech.blueprint.chat.legacy.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

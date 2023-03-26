@@ -8,18 +8,19 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BlueprintChat">
-        <activity
-            android:name=".ChatActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.BlueprintChat">
+        android:theme="@style/Theme.Blueprint.Chat">
+        <activity android:name=".login.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".chat.ChatActivity"
+            android:label="@string/chat_activity_title" />
     </application>
 
 </manifest>

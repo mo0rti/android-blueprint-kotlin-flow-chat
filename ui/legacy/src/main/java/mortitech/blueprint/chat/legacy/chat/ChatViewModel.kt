@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.legacy.list
+package mortitech.blueprint.chat.legacy.chat
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.SharedFlow

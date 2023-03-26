@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.legacy.list
+package mortitech.blueprint.chat.legacy.chat
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo

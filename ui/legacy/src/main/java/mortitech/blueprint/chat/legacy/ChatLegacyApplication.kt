@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import timber.log.Timber
 
-class ChatApplication : Application() {
+class ChatLegacyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
