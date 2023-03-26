@@ -1,4 +1,4 @@
-package mortitech.blueprint.chat.compose
+package mortitech.blueprint.chat.core
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

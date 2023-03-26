@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "BlueprintChat"
 include ':ui:legacy'
 include ':ui:compose'
+include ':ui:core'
 include ':data'

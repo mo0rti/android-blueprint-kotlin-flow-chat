@@ -1,9 +1,3 @@
 <resources>
-    <string name="app_name">BluePrint Chat</string>
-    <string name="login_username_hint">Enter username</string>
-    <string name="login_username_error">Please enter a valid username</string>
-    <string name="login_button_text">Login</string>
-    <string name="chat_activity_title">Chat</string>
-    <string name="send_button_content_description">Send message</string>
-    <string name="chat_enter_message">Enter message</string>
+    <string name="app_name">BluePrint Chat Legacy</string>
 </resources>
