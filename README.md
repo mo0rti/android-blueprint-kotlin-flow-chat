@@ -1,7 +1,18 @@
 # Kotlin Flow Chat Application
 
-<div align="center">
-  <img src="./media/legacy-chat-list-screenshot.png" alt="Kotlin chat flow" width=400>
+<div align="center" style="width:100%">
+    <table style="width:100%">
+      <tr>
+        <td align="center">
+          <img src="./media/legacy-chat-list-screenshot.png" alt="Kotlin chat legacy" width=350>
+          <br><em>Chat conversation using Legacy XML layout</em>
+        </td>
+        <td align="center">
+          <img src="./media/compose-chat-list-screenshot.png" alt="Kotlin chat compose" width=350>
+          <br><em>Chat conversation using Compose</em>
+        </td>
+      </tr>
+    </table>
 </div>
 
 <br/>
@@ -20,7 +31,7 @@ This is an Android chat application built using Kotlin and Kotlin Flow. The appl
 
 This project contains four modules
 - `:ui:legacy`, demonstrates of the Android chat using legacy android XML layouts
-- `:ui:compose`, demonstrates of the Android chat using Jetpack Compose layouts - Still in progress
+- `:ui:compose`, demonstrates of the Android chat using Jetpack Compose layouts
 - `:ui:core`, share module for both legacy and compose modules with sharing resources
 - `:data`, data modules for providing chat messages, and submitting outgoing messages using a repository
 
