@@ -18,20 +18,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mortitech.blueprint.chat.core.R
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onLogin: (userName: String) -> Unit,
+) {
     var username by remember { mutableStateOf("") }
 
+    LoginContent(
+        username = username,
+        updateUsername = { username = it },
+        onLogin = onLogin
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LoginContent(
+    username: String,
+    updateUsername: (String) -> Unit,
+    onLogin: (username: String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        Spacer(modifier = Modifier.weight(1f))
+
         OutlinedTextField(
             value = username,
-            onValueChange = { username = it },
+            onValueChange = { updateUsername(it) },
             label = { Text(text = stringResource(R.string.login_username_hint)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
@@ -44,7 +62,7 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* Perform login */ },
+            onClick = { onLogin(username) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.login_button_text))
@@ -64,8 +82,12 @@ fun LoginScreen() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen()
+fun LoginContentPreview() {
+    LoginContent(
+        username = "johndoe",
+        updateUsername = {},
+        onLogin = {}
+    )
 }

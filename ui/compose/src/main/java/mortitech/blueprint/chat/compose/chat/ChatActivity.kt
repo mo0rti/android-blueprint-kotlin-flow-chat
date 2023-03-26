@@ -13,6 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import mortitech.blueprint.chat.compose.ui.theme.BlueprintChatTheme
 
 class ChatActivity : ComponentActivity() {
+
+    companion object {
+        const val EXTRA_USERNAME = "mortitech.blueprint.chat.EXTRA_USERNAME"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

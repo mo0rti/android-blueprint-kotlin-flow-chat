@@ -1,15 +1,14 @@
 package mortitech.blueprint.chat.compose.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import mortitech.blueprint.chat.compose.chat.ChatActivity
 import mortitech.blueprint.chat.compose.ui.theme.BlueprintChatTheme
 
 class LoginActivity : ComponentActivity() {
@@ -17,24 +16,15 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BlueprintChatTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                    LoginScreen { username ->
+                        val intent = Intent(this, ChatActivity::class.java)
+                        intent.putExtra(ChatActivity.EXTRA_USERNAME, username)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    BlueprintChatTheme {
-        Greeting("Android")
     }
 }
