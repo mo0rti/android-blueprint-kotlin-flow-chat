@@ -16,11 +16,21 @@ class ConversationActivity : ComponentActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val username = intent.getStringExtra(EXTRA_USERNAME)
+        if (username.isNullOrBlank()) {
+            finish()
+            return
+        }
+
         setContent {
             BlueprintChatTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    ConversationScreen(viewModel = ConversationViewModel())
+                    ConversationScreen(
+                        viewModel = ConversationViewModel(),
+                        userName = username
+                    )
                 }
             }
         }

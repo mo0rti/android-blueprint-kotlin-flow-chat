@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -23,12 +24,22 @@ import mortitech.blueprint.chat.core.R
 fun LoginScreen(
     onLogin: (userName: String) -> Unit,
 ) {
-    var username by remember { mutableStateOf("") }
+    val usernameError = stringResource(R.string.login_username_error)
+
+    var username by rememberSaveable { mutableStateOf("") }
+    var errorMessage by rememberSaveable { mutableStateOf("") }
 
     LoginContent(
         username = username,
+        errorMessage = errorMessage,
         updateUsername = { username = it },
-        onLogin = onLogin
+        onLogin = {
+            if (username.isNotEmpty()) {
+                onLogin(username)
+            } else {
+                errorMessage = usernameError
+            }
+        }
     )
 }
 
@@ -36,6 +47,7 @@ fun LoginScreen(
 @Composable
 fun LoginContent(
     username: String,
+    errorMessage: String,
     updateUsername: (String) -> Unit,
     onLogin: (username: String) -> Unit
 ) {
@@ -49,6 +61,12 @@ fun LoginContent(
 
         OutlinedTextField(
             value = username,
+            isError = errorMessage.isNotEmpty(),
+            supportingText = {
+                if (errorMessage.isNotEmpty()) {
+                    Text(text = errorMessage)
+                }
+            },
             onValueChange = { updateUsername(it) },
             label = { Text(text = stringResource(R.string.login_username_hint)) },
             singleLine = true,
@@ -82,11 +100,23 @@ fun LoginContent(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Normal State", showBackground = true)
 @Composable
 fun LoginContentPreview() {
     LoginContent(
         username = "johndoe",
+        errorMessage = "",
+        updateUsername = {},
+        onLogin = {}
+    )
+}
+
+@Preview(name = "Error State", showBackground = true)
+@Composable
+fun LoginContentErrorPreview() {
+    LoginContent(
+        username = "",
+        errorMessage = stringResource(R.string.login_username_error),
         updateUsername = {},
         onLogin = {}
     )

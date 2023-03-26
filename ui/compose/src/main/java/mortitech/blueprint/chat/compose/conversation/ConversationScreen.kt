@@ -2,36 +2,37 @@ package mortitech.blueprint.chat.compose.conversation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material3.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mortitech.blueprint.chat.data.ChatMessage
 
 @Composable
 fun ConversationScreen(
-    viewModel: ConversationViewModel
+    userName: String,
+    viewModel: ConversationViewModel,
 ) {
-    val messages by viewModel.incomingMessages.collectAsState(initial = emptyList<ChatMessage>())
+    val messages = remember { mutableStateListOf<ChatMessage>() }
     val message = remember { mutableStateOf("") }
 
+    LaunchedEffect("Key") {
+        viewModel.incomingMessages.collect {
+            messages.add(it)
+        }
+    }
+
     ConversationContent(
-        messages = messages as List<ChatMessage>,
+        messages = messages,
         message = message.value,
         updateMessage = { message.value = it },
         onSendClick = {
             if (message.value.isNotEmpty()) {
-                //messages.add(message.value)
+                viewModel.sendMessage(userName, message.value)
                 message.value = ""
             }
         }
@@ -45,23 +46,19 @@ fun ConversationContent(
     updateMessage: (String) -> Unit,
     onSendClick: () -> Unit
 ) {
+    val scrollState = rememberLazyListState()
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        LazyColumn(
+        ConversationMessages(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(8.dp),
-            reverseLayout = true,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            items(messages) { message ->
-                ConversationMessage(text = message.content, isSentByUser = false)
-            }
-        }
+            messages = messages,
+            scrollState = scrollState
+        )
 
-        UserMessageInput(
+        ChatMessageInput(
+            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
             value = message,
             onValueChange = { updateMessage(it) },
             onSend = onSendClick
@@ -72,111 +69,47 @@ fun ConversationContent(
 @Composable
 private fun ConversationMessages(
     modifier: Modifier = Modifier,
+    scrollState: LazyListState,
     messages: List<ChatMessage>,
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp),
         reverseLayout = true,
+        state = scrollState,
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.Start
     ) {
         items(messages) { message ->
-            ConversationMessage(text = message.content, isSentByUser = false)
+            if (message.isOutgoing())
+                ChatMessageOutgoing(message = message)
+            else
+                ChatMessageIncoming(message = message)
         }
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun ConversationMessage(text: String, isSentByUser: Boolean) {
-    val backgroundColor = if (isSentByUser) Color(0xFF2196F3) else Color.LightGray
-    val contentColor = if (isSentByUser) Color.White else Color.Black
-
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor
+private fun ConversationContentPreview() {
+    val messages = listOf(
+        ChatMessage(
+            sender = "John Doe",
+            content = "Hello, World!",
+            time = "12:00:00",
+            ChatMessage.MessageType.INCOMING
         ),
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
-    ) {
-        Text(
-            text = text,
-            modifier = Modifier.padding(8.dp),
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun UserMessageInput(
-    value: String,
-    onValueChange: (String) -> Unit,
-    onSend: () -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = { Text(text = "Enter your message") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Send,
-                keyboardType = KeyboardType.Text
-            ),
-            modifier = Modifier.weight(1f)
-        )
-
-        IconButton(
-            onClick = onSend,
-            modifier = Modifier.padding(start = 8.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Send,
-                contentDescription = "Send",
-                tint = Color.Blue
-            )
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun ConversationMessagesPreview() {
-    ConversationMessages(
-        messages = listOf(
-            ChatMessage(
-                sender = "John Doe",
-                content = "Hello, World!",
-                time = "12:00:00",
-                ChatMessage.MessageType.INCOMING
-            ),
-            ChatMessage(
-                sender = "Me",
-                content = "Hello, John!",
-                time = "12:01:00",
-                ChatMessage.MessageType.OUTGOING
-            ),
-        )
+        ChatMessage(
+            sender = "Me",
+            content = "Hello, John!",
+            time = "12:01:00",
+            ChatMessage.MessageType.OUTGOING
+        ),
+    )
+    ConversationContent(
+        messages = messages,
+        message = "",
+        updateMessage = {},
+        onSendClick = {},
     )
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun ConversationMessagePreview() {
-    ConversationMessage(text = "Hello world", isSentByUser = true)
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun UserInputMessagePreview() {
-    UserMessageInput(
-        value = "",
-        onValueChange = {},
-        onSend = {}
-    )
-}
-

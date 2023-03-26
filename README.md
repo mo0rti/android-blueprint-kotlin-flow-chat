@@ -31,7 +31,10 @@ This project contains four modules
 - Material Design Components.
 
 ## Installation
-- Clone the repository to your local machine using `git clone https://github.com/mo0rti/kotlin-flow-chat-app.git`
+1- Clone the repository:
+```bash
+git clone https://github.com/mo0rti/android-blueprint-kotlin-flow-chat.git
+```
 - Open the project in Android Studio.
 - Build and run the application on an emulator or physical device.
 
